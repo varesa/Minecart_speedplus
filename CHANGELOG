@@ -1,2 +1,6 @@
 1.0:
 Initial release
+
+1.1:
+changed constant multiplier to a variable one(commands)
+changed "load" and "unload" messages
