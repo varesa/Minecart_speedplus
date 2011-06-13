@@ -1,7 +1,6 @@
-Minecart_speed+ v1.1
+Minecart_speed+ v1.1.1
 
-Minecart_speed+ is a Craftbukkit plugin,
-that increases the minecart max speed limit.
+Minecart_speed+ is a Craftbukkit plugin,that increases the minecart max speed limit.
 
 TODO:
 - Ability to set the speed with signs
@@ -9,3 +8,6 @@ TODO:
 Contact info:
 Esa Varemo
 esa@kuivanto.fi
+
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+View it at: http://creativecommons.org/licenses/by-nc-sa/3.0/

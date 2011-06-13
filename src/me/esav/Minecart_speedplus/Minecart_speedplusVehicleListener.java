@@ -6,7 +6,8 @@ import java.util.logging.Logger;
 
 import org.bukkit.entity.Minecart;
 import org.bukkit.event.vehicle.VehicleCreateEvent;
-import org.bukkit.event.vehicle.VehicleListener;;;
+import org.bukkit.event.vehicle.VehicleListener;
+import org.bukkit.util.Vector;
 
 public class Minecart_speedplusVehicleListener extends VehicleListener {
 
@@ -22,9 +23,8 @@ public class Minecart_speedplusVehicleListener extends VehicleListener {
 		if (event.getVehicle() instanceof Minecart) {
 
 			Minecart cart = (Minecart)event.getVehicle();
-			cart.setMaxSpeed(cart.getMaxSpeed()*Minecart_speedplus.speedmultiplier);
-			String info = "Minecart "+event.getVehicle().getEntityId()+" has speed set to "+cart.getMaxSpeed();
-			log.info(info);
+			cart.setMaxSpeed(0.4*Minecart_speedplus.speedmultiplier);
+
 
 		}
 	}

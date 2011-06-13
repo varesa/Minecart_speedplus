@@ -2,5 +2,8 @@
 Initial release
 
 1.1:
-changed constant multiplier to a variable one(commands)
-changed "load" and "unload" messages
+Changed constant multiplier to a variable one(commands)
+Changed "load" and "unload" messages
+
+1.1.1:
+Added more feedback on commands

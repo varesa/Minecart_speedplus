@@ -2,6 +2,7 @@ package me.esav.Minecart_speedplus;
 
 import java.util.logging.Logger;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
@@ -36,14 +37,16 @@ public class Minecart_speedplus extends JavaPlugin {
 			  try {
 				  speedmultiplier = Double.parseDouble(args[0]);
 			  } catch (Exception e) {
-				  System.out.println("improper argument:"+e.getMessage());
+				  sender.sendMessage(ChatColor.DARK_BLUE + "Minecart_speed+: Multiplier should be a number");
 				  return false;
 			  }
 			  
-			  if ( 0 < speedmultiplier & speedmultiplier < 50) {
+			  if ( 0 < speedmultiplier & speedmultiplier <= 50) {
+				  sender.sendMessage(ChatColor.DARK_BLUE + "Minecart_speed+: Speed multiplier for new carts set to: " + speedmultiplier);
 				  return true;
 			  } else {
-				  return false;
+				  sender.sendMessage(ChatColor.DARK_BLUE + "minecart_speed+: Value must be non-zero and under 50");
+				  return true;
 			  }
 			  
 			  
