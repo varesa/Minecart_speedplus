@@ -10,17 +10,32 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Minecart_speedplus extends JavaPlugin {
+	
 
 	Logger log = Logger.getLogger("Minecraft");
 	private final Minecart_speedplusVehicleListener VehicleListener = new Minecart_speedplusVehicleListener(this);
 	
 	static double speedmultiplier = 1.25;
 	
+	boolean result;
+	
+	public static double getSpeedMultiplier() {
+		return speedmultiplier;
+	}
+	
+	public boolean setSpeedMultiplier(double multiplier) {
+		if ( 0 < multiplier & multiplier <= 50) {
+			speedmultiplier = multiplier;
+			return true;
+		}	return false;
+	}
+	
 	public void onEnable(){ 
 				
 		log.info("Minecart_speed+ has been enabled.");
 		PluginManager pm = this.getServer().getPluginManager();
-		pm.registerEvent(Event.Type.VEHICLE_CREATE, VehicleListener, Event.Priority.Normal, this);	
+		pm.registerEvent(Event.Type.VEHICLE_CREATE, VehicleListener, Event.Priority.Normal, this);
+		pm.registerEvent(Event.Type.VEHICLE_MOVE, VehicleListener, Event.Priority.Normal, this);
 		
 		
 	} 
@@ -30,19 +45,22 @@ public class Minecart_speedplus extends JavaPlugin {
 		
 	}
 	
-	  public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
+	double multiplier;
+	
+	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		  
 		  if(cmd.getName().equalsIgnoreCase("msp")){ // If the player typed /basic then do the following...
 			  
 			  try {
-				  speedmultiplier = Double.parseDouble(args[0]);
+				  multiplier = Double.parseDouble(args[0]);
 			  } catch (Exception e) {
 				  sender.sendMessage(ChatColor.DARK_BLUE + "Minecart_speed+: Multiplier should be a number");
 				  return false;
 			  }
 			  
-			  if ( 0 < speedmultiplier & speedmultiplier <= 50) {
-				  sender.sendMessage(ChatColor.DARK_BLUE + "Minecart_speed+: Speed multiplier for new carts set to: " + speedmultiplier);
+			  result = setSpeedMultiplier(multiplier);
+			  if (result) {
+				  sender.sendMessage(ChatColor.DARK_BLUE + "Minecart_speed+: Speed multiplier for new carts set to: " + multiplier);
 				  return true;
 			  } else {
 				  sender.sendMessage(ChatColor.DARK_BLUE + "minecart_speed+: Value must be non-zero and under 50");
