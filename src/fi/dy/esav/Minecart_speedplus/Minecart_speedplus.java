@@ -1,4 +1,4 @@
-package me.esav.Minecart_speedplus;
+package fi.dy.esav.Minecart_speedplus;
 
 import java.util.logging.Logger;
 
@@ -72,12 +72,6 @@ public class Minecart_speedplus extends JavaPlugin {
 		  return false;
 		  
 	  }
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		while (true) { }
-	}
-
 	
 }
 
