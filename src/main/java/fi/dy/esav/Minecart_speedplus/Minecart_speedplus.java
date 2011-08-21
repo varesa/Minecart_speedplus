@@ -32,7 +32,8 @@ public class Minecart_speedplus extends JavaPlugin {
 	
 	public void onEnable(){ 
 				
-		log.info("Minecart_speed+ has been enabled.");
+		log.info(this.getDescription().getName() + " version "
+				+ this.getDescription().getVersion() + " started.");
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvent(Event.Type.VEHICLE_CREATE, VehicleListener, Event.Priority.Normal, this);
 		pm.registerEvent(Event.Type.VEHICLE_MOVE, VehicleListener, Event.Priority.Normal, this);
@@ -41,7 +42,8 @@ public class Minecart_speedplus extends JavaPlugin {
 	} 
 	public void onDisable(){ 
 	 
-		log.info("Minecart_speed+ stopped.");
+		log.info(this.getDescription().getName() + " version "
+				+ this.getDescription().getVersion() + " stopped.");
 		
 	}
 	

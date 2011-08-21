@@ -11,3 +11,6 @@ Added more feedback on commands
 1.2:
 Sign-commands
 fly-signs
+
+1.2.1:
+Removed forgotten debug message spamming console

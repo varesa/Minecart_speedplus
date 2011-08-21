@@ -77,7 +77,6 @@ public class Minecart_speedplusVehicleListener extends VehicleListener {
 								// System.out.println("first line matches!");
 
 								if (text[1].equalsIgnoreCase("fly")) {
-									log.info("Got fly-sign!");
 									cart.setFlyingVelocityMod(flyingmod);
 //									log.info(cart.getFlyingVelocityMod());
 									

@@ -1,6 +1,6 @@
 name: Minecart_speedplus
-main: me.esav.Minecart_speedplus.Minecart_speedplus
-version: 1.2
+main: fi.dy.esav.Minecart_speedplus.Minecart_speedplus
+version: 1.2.1
 commands:
    msp:
       description: Sets new minecart speed limit.
