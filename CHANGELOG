@@ -14,3 +14,6 @@ fly-signs
 
 1.2.1:
 Removed forgotten debug message spamming console
+
+1.3:
+Cmd uses now permissions

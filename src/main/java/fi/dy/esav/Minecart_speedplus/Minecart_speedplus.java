@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -52,6 +53,14 @@ public class Minecart_speedplus extends JavaPlugin {
 	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
 		  
 		  if(cmd.getName().equalsIgnoreCase("msp")){ // If the player typed /basic then do the following...
+			  
+			  if(sender instanceof Player) {
+				  Player player = (Player) sender;
+				  if (!player.hasPermission("msp.cmd")) {
+					  player.sendMessage("You don't have the right to do that");
+					  return true;
+				  }
+			  }
 			  
 			  try {
 				  multiplier = Double.parseDouble(args[0]);
