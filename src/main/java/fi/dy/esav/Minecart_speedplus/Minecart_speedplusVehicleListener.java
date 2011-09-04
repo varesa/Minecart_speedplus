@@ -31,7 +31,7 @@ public class Minecart_speedplusVehicleListener extends VehicleListener {
 	boolean error;
 	
 	Vector flyingmod = new Vector(10 , 0.01 , 10);
-	Vector noflyingmod = new Vector(0, 0, 0);
+	Vector noflyingmod = new Vector(1, 1, 1);
 
 	public Minecart_speedplusVehicleListener(Minecart_speedplus instance) {
 

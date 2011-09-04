@@ -17,3 +17,6 @@ Removed forgotten debug message spamming console
 
 1.3:
 Cmd uses now permissions
+
+1.3.1:
+Fixed nofly bug
