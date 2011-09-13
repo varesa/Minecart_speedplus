@@ -15,6 +15,7 @@ public class Minecart_speedplus extends JavaPlugin {
 
 	Logger log = Logger.getLogger("Minecraft");
 	private final Minecart_speedplusVehicleListener VehicleListener = new Minecart_speedplusVehicleListener(this);
+	private final Minecart_speedplusSignListener SignListener = new Minecart_speedplusSignListener(this);
 	
 	static double speedmultiplier = 1.25;
 	
@@ -38,6 +39,7 @@ public class Minecart_speedplus extends JavaPlugin {
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvent(Event.Type.VEHICLE_CREATE, VehicleListener, Event.Priority.Normal, this);
 		pm.registerEvent(Event.Type.VEHICLE_MOVE, VehicleListener, Event.Priority.Normal, this);
+		pm.registerEvent(Event.Type.SIGN_CHANGE, SignListener, Event.Priority.Normal, this);
 		
 		
 	} 
