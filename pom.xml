@@ -8,7 +8,7 @@
   <repositories>
     <repository>
       <id>bukkit-repo</id>
-      <url>http://repo.bukkit.org/artifactory/repo</url>
+      <url>http://repo.bukkit.org/content/repositories/releases/</url>
     </repository>
   </repositories>
   <dependencies>
