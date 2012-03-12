@@ -11,7 +11,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Minecart_speedplus extends JavaPlugin {
-	
 
 	Logger log = Logger.getLogger("Minecraft");
 	private final Minecart_speedplusVehicleListener VehicleListener = new Minecart_speedplusVehicleListener(this);
@@ -32,32 +31,23 @@ public class Minecart_speedplus extends JavaPlugin {
 		}	return false;
 	}
 	
-	public void onEnable(){ 
-				
+	public void onEnable(){ 		
 		log.info(this.getDescription().getName() + " version "
 				+ this.getDescription().getVersion() + " started.");
 		PluginManager pm = this.getServer().getPluginManager();
 		pm.registerEvents(VehicleListener, this);
 		pm.registerEvents(SignListener, this);
-		//pm.registerEvent(Event.Type.VEHICLE_CREATE, VehicleListener, Event.Priority.Normal, this);
-		//pm.registerEvent(Event.Type.VEHICLE_MOVE, VehicleListener, Event.Priority.Normal, this);
-		//pm.registerEvent(Event.Type.SIGN_CHANGE, SignListener, Event.Priority.Normal, this);
-		
-		
 	} 
+	
 	public void onDisable(){ 
-	 
 		log.info(this.getDescription().getName() + " version "
 				+ this.getDescription().getVersion() + " stopped.");
-		
 	}
 	
 	double multiplier;
 	
-	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
-		  
+	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){	  
 		  if(cmd.getName().equalsIgnoreCase("msp")){ // If the player typed /basic then do the following...
-			  
 			  if(sender instanceof Player) {
 				  Player player = (Player) sender;
 				  if (!player.hasPermission("msp.cmd")) {
@@ -80,16 +70,8 @@ public class Minecart_speedplus extends JavaPlugin {
 			  } else {
 				  sender.sendMessage(ChatColor.DARK_BLUE + "minecart_speed+: Value must be non-zero and under 50");
 				  return true;
-			  }
-			  
-			  
+			  }			  
 		  } //If this has happened the function will break and return true. if this hasn't happened the a value of false will be returned.
 		  return false;
-		  
 	  }
-	
 }
-
-
-
-
