@@ -37,9 +37,11 @@ public class Minecart_speedplus extends JavaPlugin {
 		log.info(this.getDescription().getName() + " version "
 				+ this.getDescription().getVersion() + " started.");
 		PluginManager pm = this.getServer().getPluginManager();
-		pm.registerEvent(Event.Type.VEHICLE_CREATE, VehicleListener, Event.Priority.Normal, this);
-		pm.registerEvent(Event.Type.VEHICLE_MOVE, VehicleListener, Event.Priority.Normal, this);
-		pm.registerEvent(Event.Type.SIGN_CHANGE, SignListener, Event.Priority.Normal, this);
+		pm.registerEvents(VehicleListener, this);
+		pm.registerEvents(SignListener, this);
+		//pm.registerEvent(Event.Type.VEHICLE_CREATE, VehicleListener, Event.Priority.Normal, this);
+		//pm.registerEvent(Event.Type.VEHICLE_MOVE, VehicleListener, Event.Priority.Normal, this);
+		//pm.registerEvent(Event.Type.SIGN_CHANGE, SignListener, Event.Priority.Normal, this);
 		
 		
 	} 

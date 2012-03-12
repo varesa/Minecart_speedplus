@@ -6,12 +6,14 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Minecart;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleCreateEvent;
-import org.bukkit.event.vehicle.VehicleListener;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
 import org.bukkit.util.Vector;
 
-public class Minecart_speedplusVehicleListener extends VehicleListener {
+public class Minecart_speedplusVehicleListener implements Listener {
 
 	int[] xmodifier = { -1, 0, 1 };
 	int[] ymodifier = { -2, -1, 0, 1, 2 };
@@ -38,6 +40,7 @@ public class Minecart_speedplusVehicleListener extends VehicleListener {
 		plugin = instance;
 	}
 
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onVehicleCreate(VehicleCreateEvent event) {
 		if (event.getVehicle() instanceof Minecart) {
 
@@ -46,7 +49,8 @@ public class Minecart_speedplusVehicleListener extends VehicleListener {
 
 		}
 	}
-
+	
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onVehicleMove(VehicleMoveEvent event) {
 
 		if (event.getVehicle() instanceof Minecart) {

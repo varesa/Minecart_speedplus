@@ -1,9 +1,11 @@
 package fi.dy.esav.Minecart_speedplus;
 
-import org.bukkit.event.block.BlockListener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 
-public class Minecart_speedplusSignListener extends BlockListener {
+public class Minecart_speedplusSignListener implements Listener {
 	
 	Minecart_speedplus plugin;
 	
@@ -12,6 +14,7 @@ public class Minecart_speedplusSignListener extends BlockListener {
 		plugin = instance;
 	}
 	
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onSignChange (SignChangeEvent e) {
 		if(e.getLine(0).equalsIgnoreCase("[msp]")){
 			if(e.getLine(1).equalsIgnoreCase("fly") || e.getLine(1).equalsIgnoreCase("nofly")){
