@@ -1,10 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  
   <groupId>fi.dy.esav</groupId>
   <artifactId>minecart_speedplus</artifactId>
   <version>1.5.1-SNAPSHOT</version>
   <name>Minecart_speed+</name>
+  
   <description>Bukkit plugin to increase minecart speed</description>
+  
+  <scm>
+    <connection>scm:git:ssh://github.com/varesa/Minecart_speedplus.gitA</connection>
+  </scm>
+  
   <repositories>
     <repository>
       <id>bukkit-repo</id>
