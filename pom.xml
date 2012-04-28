@@ -9,7 +9,7 @@
   <description>Bukkit plugin to increase minecart speed</description>
   
   <scm>
-    <connection>scm:git:ssh://github.com/varesa/Minecart_speedplus.git</connection>
+    <connection>scm:git:ssh://git@github.com/varesa/Minecart_speedplus.git</connection>
   </scm>
   
   <repositories>
