@@ -18,6 +18,7 @@
       <url>http://repo.bukkit.org/content/repositories/releases/</url>
     </repository>
   </repositories>
+  
   <dependencies>
   	<dependency>
   		<groupId>org.bukkit</groupId>
@@ -25,6 +26,14 @@
   		<version>1.2.3-R0.2</version>
   	</dependency>
   </dependencies>
+  
+  <distributionManagement>
+    <repository>
+      <id>Dropbox</id>
+      <url>file:///home/tomcat/Dropbox/bukkit_plugins</url>
+    </repository>
+  </distributionManagement>
+  
   <build>
     <plugins>
       <plugin>
