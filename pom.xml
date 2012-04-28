@@ -3,14 +3,13 @@
   
   <groupId>fi.dy.esav</groupId>
   <artifactId>minecart_speedplus</artifactId>
-  
-  <version>1.5.1_mc1.2.3</version>
+  <version>1.5.1-SNAPSHOT</version>
   <name>Minecart_speed+</name>
   
   <description>Bukkit plugin to increase minecart speed</description>
   
   <scm>
-    <connection>scm:git:ssh://github.com/varesa/Minecart_speedplus.gitA</connection>
+    <connection>scm:git:ssh://github.com/varesa/Minecart_speedplus.git</connection>
   </scm>
   
   <repositories>
