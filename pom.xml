@@ -3,7 +3,7 @@
   
   <groupId>fi.dy.esav</groupId>
   <artifactId>minecart_speedplus</artifactId>
-  <version>1.6-SNAPSHOT</version>
+  <version>1.6</version>
   <name>Minecart_speed+</name>
   
   <description>Bukkit plugin to increase minecart speed</description>
