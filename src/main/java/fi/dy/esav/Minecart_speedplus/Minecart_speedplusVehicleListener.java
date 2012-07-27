@@ -72,17 +72,14 @@ public class Minecart_speedplusVehicleListener implements Listener {
 								blocky, blockz);
 
 						if (blockid == Material.WALL_SIGN.getId()
-								|| blockid == Material.SIGN_POST.getId()) {
-							// log.info("You went past a sign!");
+						    || blockid == Material.SIGN_POST.getId()) {
 							Sign sign = (Sign) block.getState();
 							String[] text = sign.getLines();
 
 							if (text[0].equalsIgnoreCase("[msp]")) {
-								// System.out.println("first line matches!");
 
 								if (text[1].equalsIgnoreCase("fly")) {
 									cart.setFlyingVelocityMod(flyingmod);
-//									log.info(cart.getFlyingVelocityMod());
 									
 								} else if (text[1].equalsIgnoreCase("nofly")) {
 									
@@ -108,7 +105,6 @@ public class Minecart_speedplusVehicleListener implements Listener {
 										if (0 < line1 & line1 <= 50) {
 
 											cart.setMaxSpeed(0.4D * Double.parseDouble(text[1]));
-											// System.out.println("speedlimit set to: "+cart.getMaxSpeed());
 
 										} else {
 											
