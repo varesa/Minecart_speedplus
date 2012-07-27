@@ -71,7 +71,7 @@ public class Minecart_speedplusVehicleListener implements Listener {
 						blockid = cart.getWorld().getBlockTypeIdAt(blockx,
 								blocky, blockz);
 
-						if (blockid == Material.SIGN.getId()
+						if (blockid == Material.WALL_SIGN.getId()
 								|| blockid == Material.SIGN_POST.getId()) {
 							// log.info("You went past a sign!");
 							Sign sign = (Sign) block.getState();
