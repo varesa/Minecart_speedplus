@@ -36,7 +36,6 @@ public class Minecart_speedplusVehicleListener implements Listener {
 	Vector noflyingmod = new Vector(1, 1, 1);
 
 	public Minecart_speedplusVehicleListener(Minecart_speedplus instance) {
-
 		plugin = instance;
 	}
 
