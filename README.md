@@ -1,6 +1,6 @@
-Minecart_speed+ v2.0.0
+# Minecart_speed+ v2.0.0
 
-[Download plugin jar](https://github.com/steel9/Minecart_speedplus/raw/master/bin/Minecart_speedplus_2.0.jar)
+## [Download plugin jar](https://github.com/steel9/Minecart_speedplus/raw/master/bin/Minecart_speedplus_2.0.jar)
 
 Minecart_speed+ is a Craftbukkit plugin that increases the maximum speed limits of minecarts.
 
