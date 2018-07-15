@@ -1,6 +1,6 @@
-# Minecart_speed+ v2.0.0
+# Minecart_speed+ v2.0.1
 
-## [Download plugin jar](https://github.com/steel9/Minecart_speedplus/raw/master/bin/Minecart_speedplus_2.0.jar)
+## [Download plugin jar](https://github.com/steel9/Minecart_speedplus/raw/master/bin/Minecart_speedplus_2.0.1.jar)
 
 This is a fork of a plugin called Minecart_speed+ by Esa Varemo (https://github.com/varesa/Minecart_speedplus). This fork adds multiple improvements to the original plugin.     
      
