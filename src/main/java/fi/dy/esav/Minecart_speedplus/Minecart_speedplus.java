@@ -2,7 +2,6 @@ package fi.dy.esav.Minecart_speedplus;
 
 import java.util.logging.Logger;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -13,7 +12,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Minecart_speedplus extends JavaPlugin {
 	public static boolean verbose = false;
 	
-	FileConfiguration config;
+	public static boolean speedometer = true;
+	public static boolean speedometerAtStandardSpeed = false;
+	
+	public static FileConfiguration config;
 
 	Logger log = Logger.getLogger("Minecraft");
 	private final Minecart_speedplusVehicleListener VehicleListener = new Minecart_speedplusVehicleListener(this);
@@ -41,11 +43,15 @@ public class Minecart_speedplus extends JavaPlugin {
 		config = this.getConfig();
 		config.addDefault("defaultSpeedMultiplier", speedmultiplier);
 		config.addDefault("verbose", false);
+		config.addDefault("enableSpeedometer", true);
+		config.addDefault("showSpeedometerAtStandardSpeed", true);
 		config.options().copyDefaults(true);
 		saveConfig();
 
 		verbose = config.getBoolean("verbose");
 		speedmultiplier = config.getDouble("defaultSpeedMultiplier");
+		speedometer = config.getBoolean("enableSpeedometer");
+		speedometerAtStandardSpeed = config.getBoolean("showSpeedometerAtStandardSpeed");
 
 		PluginManager pm = getServer().getPluginManager();
 		pm.registerEvents(VehicleListener, this);
@@ -70,42 +76,100 @@ public class Minecart_speedplus extends JavaPlugin {
 			}
 			
 			if (args.length == 0) {
-				sender.sendMessage(ChatColor.DARK_BLUE + "Usage: msp set <multiplier> | msp verbose [true/false]");
+				sender.sendMessage("Type '/help Minecart_speedplus' for available commands");
 				return true;
 			}
-			switch (args[0]) {
-				case "set":
+			switch (args[0].toUpperCase()) {
+				case "SPEEDMULTIPLIER":
 					try {
 						multiplier = Double.parseDouble(args[1]);
 					} catch (Exception e) {
-						sender.sendMessage(ChatColor.DARK_BLUE + "Minecart_speed+: ERROR: Multiplier should be a number");
+						sender.sendMessage("Minecart_speed+: ERROR: Multiplier should be a number");
 						return false;
 					}
 	
 					result = setSpeedMultiplier(multiplier);
 					if (result) {
-						sender.sendMessage(ChatColor.DARK_BLUE + "Minecart_speed+: Speed multiplier for new carts set to: "
+						sender.sendMessage("Minecart_speed+: Speed multiplier for new carts set to: "
 								+ multiplier);
 						config.set("defaultSpeedMultiplier", multiplier);
 						saveConfig();
 						return true;
 					}
-					sender.sendMessage(ChatColor.DARK_BLUE + "Minecart_speed+: ERROR: Value must be non-zero and under 50");
+					else if (args.length == 1) {
+						sender.sendMessage("Current value of 'defaultSpeedMultiplier': " + config.getBoolean("defaultSpeedMultiplier"));
+						break;
+					}
+					else
+					{
+						sender.sendMessage("Minecart_speed+: ERROR: Value must be non-zero and under 50");
+					}
 					return true;
 				
-				case "verbose":
+				case "VERBOSE":
 					boolean verbose;
-					if (args[1].equalsIgnoreCase("true") || args[1].equalsIgnoreCase("false")) {
+					if (args.length > 1 && (args[1].equalsIgnoreCase("true") || args[1].equalsIgnoreCase("false"))) {
 						verbose = Boolean.valueOf(args[1]);
 					}
+					else if (args.length == 1) {
+						sender.sendMessage("Current value of 'verbose': " + config.getBoolean("verbose"));
+						break;
+					}
 					else {
-						sender.sendMessage(ChatColor.DARK_BLUE + "Minecart_speed+: ERROR: Verbose boolean should either be 'true' or 'false'");
+						sender.sendMessage("Minecart_speed+: ERROR: Boolean should either be 'true' or 'false'");
 						break;
 					}
 					
 					Minecart_speedplus.verbose = verbose;
 					config.set("verbose", verbose);
 					saveConfig();
+					sender.sendMessage("Minecart_speed+: Verbose boolean set to '" + verbose + "'");
+					return true;
+					
+				case "SPEEDOMETER":
+					boolean speedometer;
+					if (args.length > 1 && (args[1].equalsIgnoreCase("true") || args[1].equalsIgnoreCase("false"))) {
+						speedometer = Boolean.valueOf(args[1]);
+					}
+					else if (args.length == 1) {
+						sender.sendMessage("Current value of 'enableSpeedometer': " + config.getBoolean("enableSpeedometer"));
+						break;
+					}
+					else {
+						sender.sendMessage("Minecart_speed+: ERROR: Boolean should either be 'true' or 'false'");
+						break;
+					}
+					
+					Minecart_speedplus.speedometer = speedometer;
+					config.set("speedometer", speedometer);
+					saveConfig();
+					sender.sendMessage("Minecart_speed+: Speedometer set to '" + speedometer + "'");
+					
+					return true;
+					
+				case "SPEEDOMETERATSTANDARDSPEED":
+					boolean speedometerAtStandardSpeed;
+					if (args.length > 1 && (args[1].equalsIgnoreCase("true") || args[1].equalsIgnoreCase("false"))) {
+						speedometerAtStandardSpeed = Boolean.valueOf(args[1]);
+					}
+					else if (args.length == 1) {
+						sender.sendMessage("Current value of 'showSpeedometerAtStandardSpeed': " + config.getBoolean("showSpeedometerAtStandardSpeed"));
+						break;
+					}
+					else {
+						sender.sendMessage("Minecart_speed+: ERROR: Boolean should either be 'true' or 'false'");
+						break;
+					}
+					
+					Minecart_speedplus.speedometerAtStandardSpeed = speedometerAtStandardSpeed;
+					config.set("showSpeedometerAtStandardSpeed", speedometerAtStandardSpeed);
+					saveConfig();
+					sender.sendMessage("Minecart_speed+: Speedometer at standard speed set to '" + speedometerAtStandardSpeed + "'");
+					
+					return true;
+					
+				default:
+					sender.sendMessage("Minecart_speed+: ERROR: Invalid command. Type '/help Minecart_speedplus' for available commands");
 					return true;
 			}
 

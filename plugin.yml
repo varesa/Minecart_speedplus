@@ -3,9 +3,20 @@ main: fi.dy.esav.Minecart_speedplus.Minecart_speedplus
 version: 2.0
 commands:
    msp:
-      description: Sets new minecart speed limit.
-      usage: |
-         /msp set <multiplier> | /msp verbose [true/false]
+      description: Base command for this plugin
+   
+   msp speedmultiplier:
+      description: Sets a new global speed multiplier.  /msp speedmultiplier <multiplier>
+      
+   msp verbose:
+      description: Set to true for debugging. /msp verbose [true/false]
+      
+   msp speedometer:
+      description: Enable or disable speedometer. /msp speedometer [true/false]
+   
+   msp speedometerAtStandardSpeed:
+      description: Change whether the speedometer also should be shown at normal minecart speed (according to global multiplier). /msp speedometerAtStandardSpeed [true/false]
+      
 permissions:
     msp.*:
         description: Gives access to all msp features
