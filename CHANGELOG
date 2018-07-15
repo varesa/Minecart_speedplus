@@ -41,6 +41,7 @@ Fixing version numbers
 2.0.0:
 - Changes to settings is now saved
 - Implemented acceleration and deceleration instead of an instant speed change (when changing speed multiplier with signs)
+- Speedometer (experimental, shows set speed, not speed of cart (speed becomes incorrect at higher set speeds than possible)). Requires ActionBarAPI to function (though not required if you don't want a speedometer).
 - Project changed to target Java 1.8
 - Now building with Spigot API (is probably still compatible with Bukkit)
 Minecart_speedplus should be compatible with Spigot 1.12.2
