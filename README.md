@@ -8,7 +8,7 @@ Minecart_speedplus should be compatible with Spigot 1.12.2
 
 If you want to use the speedometer feature, the plugin ActionBarAPI is required (https://www.spigotmc.org/resources/actionbarapi-1-8-1-12-2.1315/). Everything except the speedometer should still work without ActionBarAPI.
 
-New features in steel9 fork:
+Highlighted new features in steel9 fork:
 2.0.0:
 - Changes to settings is now saved
 - Implemented acceleration and deceleration instead of an instant speed change (when changing speed multiplier with signs)
