@@ -44,4 +44,5 @@ Fixing version numbers
 - Speedometer (experimental, shows set speed, not speed of cart (speed becomes incorrect at higher set speeds than possible)). Requires ActionBarAPI to function (though not required if you don't want a speedometer).
 - Project changed to target Java 1.8
 - Now building with Spigot API (is probably still compatible with Bukkit)
+- Other small improvements
 Minecart_speedplus should be compatible with Spigot 1.12.2
