@@ -46,3 +46,6 @@ Fixing version numbers
 - Now building with Spigot API (is probably still compatible with Bukkit)
 - Other small improvements
 Minecart_speedplus should be compatible with Spigot 1.12.2
+
+2.0.1:
+- showSpeedometerAtStandardSpeed is now false as default
