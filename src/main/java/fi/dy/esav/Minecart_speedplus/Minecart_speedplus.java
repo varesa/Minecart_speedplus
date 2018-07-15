@@ -44,7 +44,7 @@ public class Minecart_speedplus extends JavaPlugin {
 		config.addDefault("defaultSpeedMultiplier", speedmultiplier);
 		config.addDefault("verbose", false);
 		config.addDefault("enableSpeedometer", true);
-		config.addDefault("showSpeedometerAtStandardSpeed", true);
+		config.addDefault("showSpeedometerAtStandardSpeed", false);
 		config.options().copyDefaults(true);
 		saveConfig();
 
