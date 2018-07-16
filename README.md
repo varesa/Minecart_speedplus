@@ -8,7 +8,7 @@ Minecart_speed+ is a Spigot plugin that increases the maximum speed limits of mi
 
 Minecart_speedplus should be compatible with Spigot 1.12.2
 
-If you want to use the speedometer feature, the plugin ActionBarAPI is required (https://www.spigotmc.org/resources/actionbarapi-1-8-1-12-2.1315/). Everything except the speedometer should still work without ActionBarAPI.
+**If you want to use the speedometer feature, the plugin ActionBarAPI is required (https://www.spigotmc.org/resources/actionbarapi-1-8-1-12-2.1315/). Everything except the speedometer should still work without ActionBarAPI.**
 
 Highlighted new features in steel9 fork:
 2.0.0:
