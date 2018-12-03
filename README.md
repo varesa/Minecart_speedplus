@@ -2,7 +2,7 @@
 
 ## [Download plugin jar](https://github.com/steel9/Minecart_speedplus/raw/master/bin/Minecart_speedplus_2.0.1.jar)
 
-This is a fork of a plugin called Minecart_speed+ by Esa Varemo (https://github.com/varesa/Minecart_speedplus). This fork adds multiple improvements to the original plugin.     
+This is a fork of a plugin called Minecart_speed+ (v1.6.3) by Esa Varemo (https://github.com/varesa/Minecart_speedplus). This fork adds multiple improvements to the original plugin.     
      
 Minecart_speed+ is a Spigot plugin that increases the maximum speed limits of minecarts.
 
@@ -18,7 +18,7 @@ Highlighted new features in steel9 fork:
 - Project changed to target Java 1.8
 - Now building with Spigot API (is probably still compatible with Bukkit)
 
-Contact info (original author):     
+Original author:     
 Esa Varemo     
 esa@kuivanto.fi     
 
