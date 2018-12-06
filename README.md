@@ -12,7 +12,7 @@ Minecart_speedplus should be compatible with Spigot 1.12.2
 
 Highlighted new features in steel9 fork:
 2.0.0:
-- Changes to settings is now saved
+- Changes to settings are now saved
 - Implemented acceleration and deceleration instead of an instant speed change (when changing speed multiplier with signs)
 - Speedometer (experimental, shows set speed according to multiplier, not always actual speed of cart (speed becomes incorrect at higher set speeds than possible, eg. if the multiplier is set to 100, the speedometer shows 28.8\*100 km/h, but the actual speed can't reach that high)). Requires ActionBarAPI to function (though not required if you don't want a speedometer).
 - Project changed to target Java 1.8
