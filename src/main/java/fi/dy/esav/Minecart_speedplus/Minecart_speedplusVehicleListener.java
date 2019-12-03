@@ -180,9 +180,9 @@ public class Minecart_speedplusVehicleListener implements Listener {
 						blocky = carty + ymod;
 						blockz = cartz + zmod;
 						block = cart.getWorld().getBlockAt(blockx, blocky, blockz);
-						blockid = cart.getWorld().getBlockTypeIdAt(blockx, blocky, blockz);
+						// blockid = cart.getWorld().getBlockTypeIdAt(blockx, blocky, blockz);
 
-						if (blockid == Material.WALL_SIGN.getId() || blockid == Material.SIGN_POST.getId()) {
+						if (block.getBlockData().getMaterial() == Material.WALL_SIGN || block.getBlockData().getMaterial()== Material.SIGN) {
 							Sign sign = (Sign) block.getState();
 							
 							if (registeredMinecartSigns.containsKey(cart) && registeredMinecartSigns.get(cart).equals(sign)) {
@@ -307,11 +307,12 @@ public class Minecart_speedplusVehicleListener implements Listener {
 													
 													Block block_ = cart.getWorld().getBlockAt
 															(cart.getLocation().getBlockX(), cart.getLocation().getBlockY(), cart.getLocation().getBlockZ());
-													int blockid_ = cart.getWorld().getBlockTypeIdAt
-															(cart.getLocation().getBlockX(), cart.getLocation().getBlockY(), cart.getLocation().getBlockZ());
+													//int blockid_ = cart.getWorld().getBlockTypeIdAt
+															//(cart.getLocation().getBlockX(), cart.getLocation().getBlockY(), cart.getLocation().getBlockZ());
 													
 													//Check if cart is still standing beside the sign
-													while (blockid_ == Material.WALL_SIGN.getId() || blockid_ == Material.SIGN_POST.getId()
+													while (block_.getBlockData().getMaterial() == Material.WALL_SIGN ||
+															block_.getBlockData().getMaterial() == Material.SIGN
 															&& ((Sign)block_.getState()).getLines()[0].equalsIgnoreCase("[msp]")) {
 														try {
 															//Wait until cart has passed the sign
@@ -327,8 +328,8 @@ public class Minecart_speedplusVehicleListener implements Listener {
 														//Update variables
 														block_ = cart.getWorld().getBlockAt
 																(cart.getLocation().getBlockX(), cart.getLocation().getBlockY(), cart.getLocation().getBlockZ());
-														blockid_ = cart.getWorld().getBlockTypeIdAt
-																(cart.getLocation().getBlockX(), cart.getLocation().getBlockY(), cart.getLocation().getBlockZ());
+														//blockid_ = cart.getWorld().getBlockTypeIdAt
+																//(cart.getLocation().getBlockX(), cart.getLocation().getBlockY(), cart.getLocation().getBlockZ());
 													}
 													
 													//Remove the cart and sign from the list, as the sign is already passed
