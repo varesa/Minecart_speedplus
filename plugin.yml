@@ -1,6 +1,6 @@
 name: Minecart_speedplus
 main: fi.dy.esav.Minecart_speedplus.Minecart_speedplus
-version: 2.0.1
+version: 2.0.2
 commands:
    msp:
       description: Base command for this plugin

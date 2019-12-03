@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.block.data.type.WallSign;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
@@ -182,7 +183,8 @@ public class Minecart_speedplusVehicleListener implements Listener {
 						block = cart.getWorld().getBlockAt(blockx, blocky, blockz);
 						// blockid = cart.getWorld().getBlockTypeIdAt(blockx, blocky, blockz);
 
-						if (block.getBlockData().getMaterial() == Material.WALL_SIGN || block.getBlockData().getMaterial()== Material.SIGN) {
+						//if (block.getBlockData().getMaterial() == Material.WALL_SIGN || block.getBlockData().getMaterial()== Material.SIGN) {
+						if (block.getBlockData() instanceof Sign || block.getBlockData() instanceof WallSign) {
 							Sign sign = (Sign) block.getState();
 							
 							if (registeredMinecartSigns.containsKey(cart) && registeredMinecartSigns.get(cart).equals(sign)) {
@@ -311,8 +313,12 @@ public class Minecart_speedplusVehicleListener implements Listener {
 															//(cart.getLocation().getBlockX(), cart.getLocation().getBlockY(), cart.getLocation().getBlockZ());
 													
 													//Check if cart is still standing beside the sign
+													/*
 													while (block_.getBlockData().getMaterial() == Material.WALL_SIGN ||
 															block_.getBlockData().getMaterial() == Material.SIGN
+															&& ((Sign)block_.getState()).getLines()[0].equalsIgnoreCase("[msp]")) {
+													 */
+													while ((block_.getBlockData() instanceof Sign || block_.getBlockData() instanceof WallSign)
 															&& ((Sign)block_.getState()).getLines()[0].equalsIgnoreCase("[msp]")) {
 														try {
 															//Wait until cart has passed the sign
