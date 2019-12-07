@@ -115,7 +115,9 @@ public class Minecart_speedplusVehicleListener implements Listener {
 						}
 						
 						try {
-							ActionBarAPI.sendActionBar((Player) passengers.get(c),"Current speed: " + round(8 * (cart.getMaxSpeed() / 0.4D) * 3.6, 1) + " km/h");
+							synchronized (this) {
+								ActionBarAPI.sendActionBar((Player) passengers.get(c), "Current speed: " + round(8 * (cart.getMaxSpeed() / 0.4D) * 3.6, 1) + " km/h");
+							}
 						}
 						catch (NoClassDefFoundError e) {
 							run = false;
@@ -142,7 +144,9 @@ public class Minecart_speedplusVehicleListener implements Listener {
 						
 						try
 						{
-							ActionBarAPI.sendActionBar((Player) passengers.get(c),"Current speed: " + round(8 * (cart.getMaxSpeed() / 0.4D) * 3.6, 1) + " km/h");
+							synchronized (this) {
+								ActionBarAPI.sendActionBar((Player) passengers.get(c), "Current speed: " + round(8 * (cart.getMaxSpeed() / 0.4D) * 3.6, 1) + " km/h");
+							}
 						}
 						catch (NoClassDefFoundError e) {
 							run = false;
@@ -184,7 +188,8 @@ public class Minecart_speedplusVehicleListener implements Listener {
 						// blockid = cart.getWorld().getBlockTypeIdAt(blockx, blocky, blockz);
 
 						//if (block.getBlockData().getMaterial() == Material.WALL_SIGN || block.getBlockData().getMaterial()== Material.SIGN) {
-						if (block.getBlockData() instanceof Sign || block.getBlockData() instanceof WallSign) {
+						//if (block.getBlockData() instanceof Sign || block.getBlockData() instanceof WallSign) {
+						if (block.getState() instanceof Sign || block.getState() instanceof WallSign) {
 							Sign sign = (Sign) block.getState();
 							
 							if (registeredMinecartSigns.containsKey(cart) && registeredMinecartSigns.get(cart).equals(sign)) {
