@@ -115,9 +115,9 @@ public class Minecart_speedplusVehicleListener implements Listener {
 						}
 						
 						try {
-							synchronized (this) {
+							Bukkit.getScheduler().runTask(Minecart_speedplus.getPlugin(Minecart_speedplus.class), () -> {
 								ActionBarAPI.sendActionBar((Player) passengers.get(c), "Current speed: " + round(8 * (cart.getMaxSpeed() / 0.4D) * 3.6, 1) + " km/h");
-							}
+							});
 						}
 						catch (NoClassDefFoundError e) {
 							run = false;
@@ -144,9 +144,9 @@ public class Minecart_speedplusVehicleListener implements Listener {
 						
 						try
 						{
-							synchronized (this) {
+							Bukkit.getScheduler().runTask(Minecart_speedplus.getPlugin(Minecart_speedplus.class), () -> {
 								ActionBarAPI.sendActionBar((Player) passengers.get(c), "Current speed: " + round(8 * (cart.getMaxSpeed() / 0.4D) * 3.6, 1) + " km/h");
-							}
+							});
 						}
 						catch (NoClassDefFoundError e) {
 							run = false;
