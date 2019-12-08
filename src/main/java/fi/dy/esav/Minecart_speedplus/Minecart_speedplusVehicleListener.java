@@ -162,6 +162,109 @@ public class Minecart_speedplusVehicleListener implements Listener {
 			speedometerThread.start();
 		}
 	}
+
+	private void accelerateCart(Minecart cart, String[] signText) {
+		double signMultiplier = Double.parseDouble(signText[1]);
+		double speedMultiplier = cart.getMaxSpeed() / 0.4D; //current cart speed multiplier
+
+		if (signMultiplier > speedMultiplier) {
+			// accelerate
+			double diff = signMultiplier
+					- round(speedMultiplier, 1);
+			for (int i = 0; i < diff * 10; i++) {
+
+				if (Minecart_speedplus.verbose) {
+					Bukkit.broadcastMessage("Minecart_speed+: Acceleration diff * 10: " + (diff * 10));
+					Bukkit.broadcastMessage("Minecart_speed+: i variable: " + i);
+				}
+
+				speedMultiplier += 0.1;
+				cart.setMaxSpeed(0.4D * speedMultiplier);
+				if (Minecart_speedplus.verbose)
+					Bukkit.broadcastMessage(
+							"Minecart_speed+: Accelerating. Current multiplier: "
+									+ speedMultiplier);
+
+				//show speedometer and replace (delete) old speedometers for the same player by calling with
+				//--> 'true'
+
+				activateSpeedometer(cart, true);
+				try {
+					//Increase sleep interval to slow down acceleration
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					cart.setMaxSpeed(0.4D * signMultiplier);
+					break;
+				}
+			}
+		} else if (signMultiplier < speedMultiplier) {
+			// decelerate
+			double diff = round(speedMultiplier, 1)
+					- signMultiplier;
+			for (int i = 0; i < diff * 10; i++) {
+
+				if (Minecart_speedplus.verbose) {
+					Bukkit.broadcastMessage("Minecart_speed+: Deceleration diff * 10: " + (diff * 10));
+					Bukkit.broadcastMessage("Minecart_speed+: i variable: " + i);
+				}
+
+				speedMultiplier -= 0.1;
+				cart.setMaxSpeed(0.4D * speedMultiplier);
+				if (Minecart_speedplus.verbose)
+					Bukkit.broadcastMessage(
+							"Minecart_speed+: Decelerating. Current multiplier: "
+									+ speedMultiplier);
+
+				//show speedometer
+				activateSpeedometer(cart, true);
+				try {
+					//Increase sleep interval to slow down deceleration
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					cart.setMaxSpeed(0.4D * signMultiplier);
+					break;
+				}
+			}
+		}
+		// Set the final speed
+		// (multiplier according to
+		// sign) to correct eventual
+		// errors made by
+		// acceleration (and deceleration) function
+		cart.setMaxSpeed(0.4D * Double.parseDouble(signText[1]));
+		if (Minecart_speedplus.verbose)
+			Bukkit.broadcastMessage(
+					"Minecart_speed+: Final multiplier: " + Double.parseDouble(signText[1]));
+
+		Block block_ = cart.getWorld().getBlockAt
+				(cart.getLocation().getBlockX(), cart.getLocation().getBlockY(), cart.getLocation().getBlockZ());
+
+		//Check if cart is still standing beside the sign
+		while ((block_.getBlockData() instanceof Sign || block_.getBlockData() instanceof WallSign)
+				&& ((Sign)block_.getState()).getLines()[0].equalsIgnoreCase("[msp]")) {
+			try {
+				//Wait until cart has passed the sign
+				if (Minecart_speedplus.verbose) {
+					Bukkit.broadcastMessage("Minecart_speed+: Waiting for minecart to pass the sign...");
+				}
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				registeredMinecartSigns.remove(cart);
+				return;
+			}
+
+			//Update variables
+			block_ = cart.getWorld().getBlockAt
+					(cart.getLocation().getBlockX(), cart.getLocation().getBlockY(), cart.getLocation().getBlockZ());
+		}
+
+		//Remove the cart and sign from the list, as the sign is already passed
+		//(won't disturb acceleration functions anymore)
+		registeredMinecartSigns.remove(cart);
+		if (Minecart_speedplus.verbose) {
+			Bukkit.broadcastMessage("Minecart_speed+: Cart and sign removed from list");
+		}
+	}
 	
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onVehicleMove(VehicleMoveEvent event) {
@@ -185,194 +288,68 @@ public class Minecart_speedplusVehicleListener implements Listener {
 						blocky = carty + ymod;
 						blockz = cartz + zmod;
 						block = cart.getWorld().getBlockAt(blockx, blocky, blockz);
-						// blockid = cart.getWorld().getBlockTypeIdAt(blockx, blocky, blockz);
 
-						//if (block.getBlockData().getMaterial() == Material.WALL_SIGN || block.getBlockData().getMaterial()== Material.SIGN) {
-						//if (block.getBlockData() instanceof Sign || block.getBlockData() instanceof WallSign) {
-						if (block.getState() instanceof Sign || block.getState() instanceof WallSign) {
-							Sign sign = (Sign) block.getState();
-							
-							if (registeredMinecartSigns.containsKey(cart) && registeredMinecartSigns.get(cart).equals(sign)) {
-								//This sign has already been registered by the speed system
-								if (Minecart_speedplus.verbose) {
-									Bukkit.broadcastMessage("Minecart_speed+: Cancelling speed change, another speed change to the same multiplier is already running");
-								}
-								return;
-							}
-							
-							//Add the cart and sign to the list, to prevent the same sign from being registered multiple times while passing it
-							registeredMinecartSigns.put(cart, sign);
-							
-							String[] text = sign.getLines();
-
-							if (text[0].equalsIgnoreCase("[msp]")) {
-
-								if (text[1].equalsIgnoreCase("fly")) {
-									cart.setFlyingVelocityMod(flyingmod);
-
-								} else if (text[1].equalsIgnoreCase("nofly")) {
-
-									cart.setFlyingVelocityMod(noflyingmod);
-
-								} else {
-
-									error = false;
-									try {
-
-										line1 = Double.parseDouble(text[1]);
-
-									} catch (Exception e) {
-
-										sign.setLine(2, "  ERROR");
-										sign.setLine(3, "WRONG VALUE");
-										sign.update();
-										error = true;
-
-									}
-									if (!error) {
-
-										if (0 < line1 & line1 <= 50) {
-											// Acceleration/deceleration of cart
-											// speed
-											// Running as separate threads to
-											// not freeze whole plugin while
-											// using Thread.sleep
-											Thread thread = new Thread() {
-												public void run() {
-													//Player player = (Player) cart.getPassengers().get(0);
-													double signMultiplier = Double.parseDouble(text[1]);
-													double speedMultiplier = cart.getMaxSpeed() / 0.4D; //current cart speed multiplier
-
-													if (signMultiplier > speedMultiplier) {
-														// accelerate
-														double diff = signMultiplier
-																- round(speedMultiplier, 1);
-														for (int i = 0; i < diff * 10; i++) {
-															
-															if (Minecart_speedplus.verbose) {
-																Bukkit.broadcastMessage("Minecart_speed+: Acceleration diff * 10: " + (diff * 10));
-																Bukkit.broadcastMessage("Minecart_speed+: i variable: " + i);
-															}
-															
-															speedMultiplier += 0.1;
-															cart.setMaxSpeed(0.4D * speedMultiplier);
-															if (Minecart_speedplus.verbose)
-																Bukkit.broadcastMessage(
-																		"Minecart_speed+: Accelerating. Current multiplier: "
-																				+ speedMultiplier);
-															
-															//show speedometer and replace (delete) old speedometers for the same player by calling with
-															//--> 'true'
-															
-															activateSpeedometer(cart, true);
-															try {
-																//Increase sleep interval to slow down acceleration
-																Thread.sleep(500);
-															} catch (InterruptedException e) {
-																cart.setMaxSpeed(0.4D * signMultiplier);
-																break;
-															}
-														}
-													} else if (signMultiplier < speedMultiplier) {
-														// decelerate
-														double diff = round(speedMultiplier, 1)
-																- signMultiplier;
-														for (int i = 0; i < diff * 10; i++) {
-															
-															if (Minecart_speedplus.verbose) {
-																Bukkit.broadcastMessage("Minecart_speed+: Deceleration diff * 10: " + (diff * 10));
-																Bukkit.broadcastMessage("Minecart_speed+: i variable: " + i);
-															}
-															
-															speedMultiplier -= 0.1;
-															cart.setMaxSpeed(0.4D * speedMultiplier);
-															if (Minecart_speedplus.verbose)
-																Bukkit.broadcastMessage(
-																		"Minecart_speed+: Decelerating. Current multiplier: "
-																				+ speedMultiplier);
-															
-																//show speedometer
-																activateSpeedometer(cart, true);
-															try {
-																//Increase sleep interval to slow down deceleration
-																Thread.sleep(500);
-															} catch (InterruptedException e) {
-																cart.setMaxSpeed(0.4D * signMultiplier);
-																break;
-															}
-														}
-													}
-													// Set the final speed
-													// (multiplier according to
-													// sign) to correct eventual
-													// errors made by
-													// acceleration (and deceleration) function
-													cart.setMaxSpeed(0.4D * Double.parseDouble(text[1]));
-													if (Minecart_speedplus.verbose)
-														Bukkit.broadcastMessage(
-																"Minecart_speed+: Final multiplier: " + Double.parseDouble(text[1]));
-													
-													Block block_ = cart.getWorld().getBlockAt
-															(cart.getLocation().getBlockX(), cart.getLocation().getBlockY(), cart.getLocation().getBlockZ());
-													//int blockid_ = cart.getWorld().getBlockTypeIdAt
-															//(cart.getLocation().getBlockX(), cart.getLocation().getBlockY(), cart.getLocation().getBlockZ());
-													
-													//Check if cart is still standing beside the sign
-													/*
-													while (block_.getBlockData().getMaterial() == Material.WALL_SIGN ||
-															block_.getBlockData().getMaterial() == Material.SIGN
-															&& ((Sign)block_.getState()).getLines()[0].equalsIgnoreCase("[msp]")) {
-													 */
-													while ((block_.getBlockData() instanceof Sign || block_.getBlockData() instanceof WallSign)
-															&& ((Sign)block_.getState()).getLines()[0].equalsIgnoreCase("[msp]")) {
-														try {
-															//Wait until cart has passed the sign
-															if (Minecart_speedplus.verbose) {
-																Bukkit.broadcastMessage("Minecart_speed+: Waiting for minecart to pass the sign...");
-															}
-															Thread.sleep(500);
-														} catch (InterruptedException e) {
-															registeredMinecartSigns.remove(cart);
-															return;
-														}
-														
-														//Update variables
-														block_ = cart.getWorld().getBlockAt
-																(cart.getLocation().getBlockX(), cart.getLocation().getBlockY(), cart.getLocation().getBlockZ());
-														//blockid_ = cart.getWorld().getBlockTypeIdAt
-																//(cart.getLocation().getBlockX(), cart.getLocation().getBlockY(), cart.getLocation().getBlockZ());
-													}
-													
-													//Remove the cart and sign from the list, as the sign is already passed
-													//(won't disturb acceleration functions anymore)
-													registeredMinecartSigns.remove(cart);
-													if (Minecart_speedplus.verbose) {
-														Bukkit.broadcastMessage("Minecart_speed+: Cart and sign removed from list");
-													}
-												}
-											};
-											thread.start();
-
-											// cart.setMaxSpeed(0.4D *
-											// Double.parseDouble(text[1]));
-
-										} else {
-
-											sign.setLine(2, "  ERROR");
-											sign.setLine(3, "WRONG VALUE");
-											sign.update();
-										}
-									}
-								}
-							}
-
+						if (!(block.getState() instanceof Sign || block.getState() instanceof WallSign)) {
+							return;
 						}
 
+						Sign sign = (Sign) block.getState();
+
+						if (registeredMinecartSigns.containsKey(cart) && registeredMinecartSigns.get(cart).equals(sign)) {
+							//This sign has already been registered by the speed system
+							if (Minecart_speedplus.verbose) {
+								Bukkit.broadcastMessage("Minecart_speed+: Cancelling speed change, another speed change to the same multiplier is already running");
+							}
+							return;
+						}
+
+						//Add the cart and sign to the list, to prevent the same sign from being registered multiple times while passing it
+						registeredMinecartSigns.put(cart, sign);
+
+						String[] text = sign.getLines();
+
+						if (!text[0].equalsIgnoreCase("[msp]")) {
+							return;
+						}
+
+						if (text[1].equalsIgnoreCase("fly")) {
+							cart.setFlyingVelocityMod(flyingmod);
+						} else if (text[1].equalsIgnoreCase("nofly")) {
+							cart.setFlyingVelocityMod(noflyingmod);
+						} else {
+							//error = false;
+							try {
+								line1 = Double.parseDouble(text[1]);
+							} catch (Exception e) {
+								sign.setLine(2, "  ERROR");
+								sign.setLine(3, "WRONG VALUE");
+								sign.update();
+								//error = true;
+								return;
+							}
+
+							if (!(0 < line1 & line1 <= 50)) {
+								sign.setLine(2, "  ERROR");
+								sign.setLine(3, "WRONG VALUE");
+								sign.update();
+								return;
+							}
+
+							// Acceleration/deceleration of cart
+							// speed
+							// Running as separate threads to
+							// not freeze whole plugin while
+							// using Thread.sleep
+							Thread thread = new Thread() {
+								public void run() {
+									accelerateCart(cart, text);
+								}
+							};
+							thread.start();
+						}
 					}
 				}
 			}
-
 		}
 	}
-
 }
