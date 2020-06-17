@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="minecart_speedplus:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/minecart_speedplus_jar</output-path>
+    <root id="archive" name="minecart_speedplus.jar">
+      <element id="module-output" name="minecart_speedplus" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../Downloads/SPIGOT DEVELOPMENT/Spigot/Spigot-API/target/spigot-api-1.14.4-R0.1-SNAPSHOT-shaded.jar" path-in-jar="/" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
+    </root>
+  </artifact>
+</component>

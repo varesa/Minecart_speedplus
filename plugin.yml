@@ -1,0 +1,41 @@
+name: Minecart_speedplus
+main: fi.dy.esav.Minecart_speedplus.Minecart_speedplus
+version: 2.0.4
+commands:
+   msp:
+      description: Base command for this plugin
+   
+   msp speedmultiplier:
+      description: Sets a new global speed multiplier.  /msp speedmultiplier <multiplier>
+      
+   msp verbose:
+      description: Set to true for debugging. /msp verbose [true/false]
+      
+   msp speedometer:
+      description: Enable or disable speedometer. /msp speedometer [true/false]
+   
+   msp speedometerAtStandardSpeed:
+      description: Change whether the speedometer also should be shown at normal minecart speed (according to global multiplier). /msp speedometerAtStandardSpeed [true/false]
+      
+permissions:
+    msp.*:
+        description: Gives access to all msp features
+        default: op
+        children:
+            msp.cmd: true
+            msp.signs: true
+    msp.cmd:
+        description: Allows you to use speed cmd
+        default: op
+    msp.signs:
+        description: Allows you to create both signs
+        default: op
+        children:
+            msp.signs.speed: true
+            msp.signs.fly: true
+    msp.signs.speed:
+        description: Allows you to create speed-sings
+        default: op
+    msp.signs.fly:
+        description: Allows you to create fly-signs
+        default: op
